@@ -36,7 +36,7 @@ export default function Edit({ minuman }: { minuman: any }) {
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
-            setData('image', file);
+            setData('image', file); 
         }
     };
 

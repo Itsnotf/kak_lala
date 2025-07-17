@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('nama_pelanggan');
             $table->string('metode_pembayaran');
             $table->string('bukti_pembayaran')->nullable();
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }

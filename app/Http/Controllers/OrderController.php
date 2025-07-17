@@ -15,15 +15,20 @@ class OrderController extends Controller
     {
         $orders = Order::with(['minuman'])->latest()->get();
 
+        // dd($orders);
+
         $formattedOrders = $orders->map(function ($order) {
             return [
                 'id' => $order->id,
                 'no_meja' => $order->no_meja,
                 'nama_pelanggan' => $order->nama_pelanggan,
+                'metode_pembayaran' => $order->metode_pembayaran,
+                'bukti_pembayaran' => $order->bukti_pembayaran,
+                'status' => $order->status,
                 'order_minuman' => $order->minuman->map(function ($minuman) {
                     return [
                         'id' => $minuman->id,
-                        'minuman_name' => $minuman->name,
+                        'minuman_name' => $minuman->minuman_name,
                         'quantity' => $minuman->pivot->quantity,
                         'total_harga' => $minuman->pivot->total_harga,
                     ];
@@ -31,6 +36,7 @@ class OrderController extends Controller
             ];
         });
 
+        // dd($formattedOrders);
         return Inertia::render('order/index', [
             'orders' => $formattedOrders,
         ]);
@@ -64,6 +70,7 @@ class OrderController extends Controller
         $order->nama_pelanggan = $validated['nama_pelanggan'];
         $order->metode_pembayaran = $validated['metode_pembayaran'];
         $order->no_meja = $validated['no_meja'];
+        $order->status = "pending";
 
         if ($request->hasFile('bukti_pembayaran')) {
             $filePath = $request->file('bukti_pembayaran')->store('bukti_pembayaran', 'public');
@@ -88,7 +95,18 @@ class OrderController extends Controller
         return redirect()->back()->with('success', 'Orderan created successfully.');
     }
 
+    public function selesaikan(Order $order)
+    {
+        if (!$order) {
+            return redirect()->back()->with('error', 'Order tidak ditemukan.');
+        }
 
+        $order->status = 'selesai';
+        $order->save();
+
+        // Redirect kembali ke halaman index dengan pesan sukses
+        return redirect()->route('order.index')->with('success', 'Order berhasil diselesaikan.');
+    }
 
 
     /**

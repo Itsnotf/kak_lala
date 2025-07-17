@@ -11,6 +11,7 @@ class Order extends Model
         'nama_pelanggan',
         'metode_pembayaran',
         'bukti_pembayaran',
+        'status',
     ];
 
     public function minuman()

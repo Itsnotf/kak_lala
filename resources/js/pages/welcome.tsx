@@ -156,6 +156,15 @@ export default function TablePage({ minuman, no_meja, barcode }: Props) {
 
     return (
         <div className="mx-auto max-w-7xl px-4 py-8">
+            <div className="mb-8 text-center">
+                <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+                    Ruang Tembesu
+                </h1>
+                <p className="mt-2 text-lg leading-8 text-gray-600">
+                    Space & Resto
+                </p>
+            </div>
+
             <Drawer>
                 <div className="flex items-center justify-between p-4">
                     <h2 className="text-xl font-semibold">Rekomendasi Minuman</h2>
@@ -199,7 +208,7 @@ export default function TablePage({ minuman, no_meja, barcode }: Props) {
                 </div>
 
                 <div className="mt-10 px-4">
-                    <h2 className="mb-4 text-xl font-semibold">Semua Minuman</h2>
+                    <h2 className="mb-4 text-xl font-semibold">Menu</h2>
                     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                         {(minuman && minuman.length > 0 ? minuman : []).map((item) => (
                             <div key={item.id} className="rounded-xl border p-4 shadow transition hover:shadow-md">

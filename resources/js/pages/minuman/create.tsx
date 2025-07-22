@@ -17,7 +17,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-const emotionOptions = ['neutral', 'happy', 'sad', 'angry', 'fear', 'surprise'];
+const emotionOptions = ['neutral', 'happy', 'sad', 'angry', 'fear', 'surprise', 'none'];
 
 export default function Create() {
     const { data, setData, post, processing, errors } = useForm({

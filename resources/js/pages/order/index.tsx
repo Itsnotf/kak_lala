@@ -99,7 +99,6 @@ export default function OrderIndex({ orders }: Props) {
                 </div>
             </div>
 
-            {/* Modal pakai ShadCN */}
             <Dialog open={selectedOrder !== null} onOpenChange={() => setSelectedOrder(null)}>
                 <DialogContent className="sm:max-w-lg">
                     <DialogHeader>
@@ -109,9 +108,7 @@ export default function OrderIndex({ orders }: Props) {
 
                     {selectedOrder && (
                         <div className="flex flex-col gap-4 py-4">
-                            {/* --- Detail Pelanggan & Meja --- */}
                             <div className="grid grid-cols-3 items-center gap-x-4 gap-y-2 text-sm">
-                                {/* UX: Menggunakan grid agar label dan data sejajar rapi */}
                                 <span className="text-muted-foreground">No. Meja</span>
                                 <span className="col-span-2 font-semibold">{selectedOrder.no_meja}</span>
 
@@ -124,11 +121,9 @@ export default function OrderIndex({ orders }: Props) {
 
                             <Separator />
 
-                            {/* --- Daftar Item Pesanan --- */}
                             <div>
                                 <h4 className="mb-2 font-medium">Rincian Pesanan</h4>
                                 <div className="space-y-2 text-sm">
-                                    {/* UX: Menggunakan flexbox untuk meratakan harga di sebelah kanan */}
                                     {selectedOrder.order_minuman.map((item) => (
                                         <div key={item.id} className="flex items-center justify-between">
                                             <div className="text-muted-foreground">
@@ -136,7 +131,6 @@ export default function OrderIndex({ orders }: Props) {
                                                 <span className="ml-2">x {item.quantity}</span>
                                             </div>
                                             <span>
-                                                {/* UX: Format mata uang yang konsisten */}
                                                 {new Intl.NumberFormat('id-ID', {
                                                     style: 'currency',
                                                     currency: 'IDR',
@@ -149,9 +143,6 @@ export default function OrderIndex({ orders }: Props) {
                             </div>
 
                             <Separator />
-
-                            {/* --- Total Harga --- */}
-                            {/* UX: Total harga dibuat lebih menonjol */}
                             <div className="flex items-center justify-between text-base font-bold">
                                 <span>Total Harga</span>
                                 <span>
@@ -163,17 +154,18 @@ export default function OrderIndex({ orders }: Props) {
                                 </span>
                             </div>
 
-                            {/* --- Bukti Pembayaran (jika ada) --- */}
                             {selectedOrder?.metode_pembayaran === 'qris' && selectedOrder.bukti_pembayaran && (
                                 <>
                                     <Separator />
                                     <div className="space-y-2">
                                         <h4 className="font-medium">Bukti Pembayaran</h4>
-                                        <img
-                                            src={`/storage/${selectedOrder.bukti_pembayaran}`}
-                                            alt={`Bukti pembayaran dari ${selectedOrder.nama_pelanggan}`}
-                                            className="w-full rounded-md border"
-                                        />
+                                        <a href={`/storage/${selectedOrder.bukti_pembayaran}`} target="_blank" rel="noopener noreferrer">
+                                            <img
+                                                src={`/storage/${selectedOrder.bukti_pembayaran}`}
+                                                alt={`Bukti pembayaran dari ${selectedOrder.nama_pelanggan}`}
+                                                className="max-h-60 w-full cursor-pointer rounded-md border object-contain transition hover:opacity-80"
+                                            />
+                                        </a>
                                     </div>
                                 </>
                             )}
@@ -183,7 +175,7 @@ export default function OrderIndex({ orders }: Props) {
                     <DialogFooter>
                         {selectedOrder && selectedOrder.status !== 'selesai' && (
                             <Button variant="default" onClick={handleSelesaikanOrder}>
-                                <CheckCircle className="mr-2 h-4 w-4" /> {/* UX: Ikon memperjelas aksi */}
+                                <CheckCircle className="mr-2 h-4 w-4" />
                                 Selesaikan Order
                             </Button>
                         )}

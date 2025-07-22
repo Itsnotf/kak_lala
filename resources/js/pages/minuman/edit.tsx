@@ -25,7 +25,7 @@ export default function Edit({ minuman }: { minuman: any }) {
         minuman_name: minuman.minuman_name,
         price: minuman.price,
         emotional: minuman.emotional,
-        image: null as File | null,
+        gambar: null as File | null,
     });
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -33,10 +33,10 @@ export default function Edit({ minuman }: { minuman: any }) {
         post(`/minuman/${minuman.id}`, { forceFormData: true });
     };
 
-    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleGambarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
-            setData('image', file); 
+            setData('gambar', file);
         }
     };
 
@@ -77,19 +77,19 @@ export default function Edit({ minuman }: { minuman: any }) {
                         </div>
 
                         <div>
-                            <Label htmlFor="image">Gambar Minuman</Label>
-                            <Input id="image" type="file" accept="image/*" onChange={handleImageChange} />
-                            {errors.image && <p className="mt-1 text-sm text-red-500">{errors.image}</p>}
-                            {minuman.image && !data.image && (
+                            <Label htmlFor="gambar">Gambar Minuman</Label>
+                            <Input id="gambar" type="file" accept="gambar/*" onChange={handleGambarChange} />
+                            {errors.gambar && <p className="mt-1 text-sm text-red-500">{errors.gambar}</p>}
+                            {minuman.gambar && !data.gambar && (
                                 <img
-                                    src={`/storage/${minuman.image}`}
+                                    src={`/storage/${minuman.gambar}`}
                                     alt="Gambar sebelumnya"
                                     className="mt-2 max-w-xs rounded shadow"
                                 />
                             )}
-                            {data.image && (
+                            {data.gambar && (
                                 <img
-                                    src={URL.createObjectURL(data.image)}
+                                    src={URL.createObjectURL(data.gambar)}
                                     alt="Preview"
                                     className="mt-2 max-w-xs rounded shadow"
                                 />

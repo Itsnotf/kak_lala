@@ -73,8 +73,11 @@ class MinumanController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Minuman $minuman)
+    public function update(Request $request, string $id)
     {
+
+        $minuman = Minuman::findOrFail($id);
+
         $request->validate([
             'minuman_name' => 'required|string|max:255',
             'price' => 'required|numeric',
@@ -89,7 +92,7 @@ class MinumanController extends Controller
                 Storage::disk('public')->delete($minuman->gambar);
             }
 
-            $path = $request->file('gambar')->store('minuman_gambars', 'public');
+            $path = $request->file('gambar')->store('minuman_gambar', 'public');
             $data['gambar'] = $path;
         }
 
